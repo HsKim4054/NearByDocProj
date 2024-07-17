@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.hospital">
+
+	<insert id="insertHospital" parameterType="Hospital">
+	<![CDATA[
+	insert into hospital (hname, comnum, htel, department, hpassword, lunch, clinic, hroad, hdong, hdetail, hpostcode, hurl,lat,lon ) values 
+	(#{hname},#{comnum},#{htel},#{department},#{hpassword},#{lunch},#{clinic},#{hroad},#{hdong},#{hdetail},#{hpostcode},#{hurl},#{lat},#{lon} ) 
+	]]>
+	</insert>
+
+	<select id="selectHospital" parameterType="String"
+		resultType="Hospital">
+	<![CDATA[
+		select * from hospital where comnum=#{comnum}
+	]]>
+	</select>
+
+	<!-- 병원 정보 수정 -->
+
+	<update id="updateHospital" parameterType="Hospital">
+		update hospital
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="department !=null">department=#{department},</if>
+			<if test="hname !=null">hname=#{hname},</if>
+			<if test="htel !=null">htel=#{htel},</if>
+			<if test="hroad !=null">hroad=#{hroad},</if>
+			<if test="hdetail !=null">hdetail=#{hdetail},</if>
+			<if test="hpostcode !=null">hpostcode=#{hpostcode},</if>
+			<if test="hdong !=null">hdong=#{hdong},</if>
+			<if test="clinic !=null">clinic=#{clinic},</if>
+			<if test="lunch !=null">lunch=#{lunch},</if>
+			<if test="hurl !=null">hurl=#{hurl},</if>
+			<if test="lat !=null">lat=#{lat},</if>
+			<if test="lon !=null">lon=#{lon},</if>
+			
+		</trim>
+		where comnum= #{comnum}
+	</update>
+	
+	
+	<select id="selectHospitalList" parameterType="String" resultType="Hospital">
+
+	<![CDATA[
+		select * from hospital where department=#{department}
+	]]>
+	</select>
+	
+	<update id="updateGrade" parameterType="hashmap">
+		<![CDATA[
+			update hospital 
+			set hgrade = #{grade}
+			where comnum = #{comnum}
+		]]>
+	</update>
+
+</mapper>
